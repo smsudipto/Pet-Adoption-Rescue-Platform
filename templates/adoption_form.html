@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Adopt {{ pet.name }}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm p-4">
+            <h3 class="fw-bold mb-3"><i class="fas fa-heart text-danger"></i> Adopt {{ pet.name }}</h3>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Phone Number</label>
+                    <input type="text" name="phone" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Address</label>
+                    <textarea name="address" class="form-control" rows="2" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Why do you want this pet?</label>
+                    <textarea name="reason" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Have you owned a pet before?</label>
+                    <select name="previous_pet_experience" class="form-select" required>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Additional Message (Optional)</label>
+                    <textarea name="message" class="form-control" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Submit Application</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

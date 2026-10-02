@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}User Dashboard - My Requests{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="fw-bold mb-3"><i class="fas fa-tachometer-alt"></i> My Adoption Requests</h2>
+        <hr class="mb-4">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Pet Name</th>
+                        <th>Application Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in user_requests %}
+                    <tr>
+                        <td><strong>{{ req.pet.name }}</strong></td>
+                        <td>{{ req.created_at|date:"d M Y" }}</td>
+                        <td>
+                            {% if req.status == 'Pending' %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% elif req.status == 'Approved' %}
+                                <span class="badge bg-success">Approved</span>
+                            {% else %}
+                                <span class="badge bg-danger">Rejected</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center py-4 text-muted">You haven't submitted any adoption requests yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

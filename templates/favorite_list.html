@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}My Favorite Pets{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h2 class="fw-bold mb-4"><i class="fas fa-heart text-danger"></i> My Favorite Pets</h2>
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for fav in favorites %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                {% if fav.pet.image %}
+                    <img src="{{ fav.pet.image.url }}" class="card-img-top" alt="{{ fav.pet.name }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">{{ fav.pet.name }}</h5>
+                    <p class="card-text text-muted mb-1"><small>Type: {{ fav.pet.animal_type }} | Breed: {{ fav.pet.breed }}</small></p>
+                    <p class="card-text text-muted mb-3"><small><i class="fas fa-map-marker-alt"></i> {{ fav.pet.location }}</small></p>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'pet_detail' fav.pet.pk %}" class="btn btn-outline-primary btn-sm">View Details</a>
+                        <a href="{% url 'toggle_favorite' fav.pet.pk %}" class="btn btn-outline-danger btn-sm">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <h4 class="text-muted">You haven't added any favorite pets yet!</h4>
+            <a href="{% url 'pet_list' %}" class="btn btn-primary mt-3">Browse Pets</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
